@@ -16,7 +16,7 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(basicAuth({
-    users: { 'admin': 'mindwebs' }
+    users: { 'admin': 'admin' }
 }))
 
 const uri = process.env.ATLAS_URI;
