@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/aroy97/react_profile_backend/issues"
   },
-  "homepage": "https://github.com/aroy97/react_profile_backend#readme"
+  "homepage": "https://github.com/aroy97/react_profile_backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
