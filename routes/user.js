@@ -93,7 +93,8 @@ router.route('/get_user_details').post((req,res) => {
                             {
                                 "username": user[0].username,
                                 "mobile": user[0].mobile,
-                                "status": user[0].status
+                                "status": user[0].status,
+                                "profilepic": user[0].profilepic
                             })
                     })
                     .catch(err => res.status(400).json('Error:' + err));
