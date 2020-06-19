@@ -179,13 +179,26 @@ router.route('/register').post((req,res) => {
         .catch(err => res.status(400).json('Error:' + err));
 });
 
+// Update Profile Pic of the user
+router.route('/update_picture').post((req,res) => {
+    const token = req.body.token;
+    User.findOne({sessionToken: token})
+    .then(user => {
+        user.profilepic = req.body.pic;
+        user.save()
+            .then(() => res.json('User Details updated'))
+            .catch(err => res.status(400).json('Error:' + err));
+    })
+    .catch(err => res.status(400).json('Error:' + err));
+});
+
 // Update Details of the user
 router.route('/update_details').post((req,res) => {
     const token = req.body.token;
     User.findOne({sessionToken: token})
     .then(user => {
         user.username = req.body.username;
-        user.profilepic = req.body.pic;
+        user.mobile = req.body.mobile;
         user.status = req.body.status;
         user.save()
             .then(() => res.json('User Details updated'))
