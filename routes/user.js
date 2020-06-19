@@ -75,7 +75,7 @@ router.route('/get_session').post((req,res) => {
         .catch(err => res.status(400).json('Error:' + err));
 });
 
-// To get user session token for seamless login
+// To get user session details for seamless login
 router.route('/get_user_details').post((req,res) => {
     const token = req.body.token;
     User.find({ sessionToken: token })
