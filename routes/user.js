@@ -75,6 +75,33 @@ router.route('/get_session').post((req,res) => {
         .catch(err => res.status(400).json('Error:' + err));
 });
 
+// To get user session token for seamless login
+router.route('/get_user_details').post((req,res) => {
+    const token = req.body.token;
+    User.find({ sessionToken: token })
+        .then(user => {
+            // console.log(user);
+            if(user.length === 0){
+                res.status(204).json({'message': 'Failed'});
+            }
+            else{
+                const lastLogin = user[0].lastLoggedIn;
+                user[0].lastLoggedIn = new Date()
+                user[0].save()
+                    .then(() => {
+                        res.json(
+                            {
+                                "username": user[0].username,
+                                "mobile": user[0].mobile,
+                                "status": user[0].status
+                            })
+                    })
+                    .catch(err => res.status(400).json('Error:' + err));
+            }
+        })
+        .catch(err => res.status(400).json('Error:' + err));
+});
+
 // To check the locally stored session token in the Mongo DB
 router.route('/check_session').post((req,res) => {
     const token = req.body.token;
