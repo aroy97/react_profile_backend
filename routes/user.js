@@ -186,7 +186,7 @@ router.route('/update_picture').post((req,res) => {
     .then(user => {
         user.profilepic = req.body.pic;
         user.save()
-            .then(() => res.json('User Details updated'))
+            .then(() => res.json({"message":"User Details updated"}))
             .catch(err => res.status(400).json('Error:' + err));
     })
     .catch(err => res.status(400).json('Error:' + err));
