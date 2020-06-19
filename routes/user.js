@@ -246,7 +246,7 @@ router.route('/forgot_password').post((req,res) => {
                             from: 'project.demo.react.2020@gmail.com',
                             to: email,
                             subject: 'Reset Password Link',
-                            html: "Go to the link below to reset your password <br><br><br>" + "<a href='http://localhost:3000/set-password/"+resetToken+"'>Click here to reset password</a>"
+                            html: "Go to the link below to reset your password <br><br><br>" + "<a href='https://5eec97b4485a0900074c1d87--relaxed-wescoff-bb0367.netlify.app/set-password/"+resetToken+"'>Click here to reset password</a>"
                         };
                             
                         transporter.sendMail(mailOptions, function(error, info){
