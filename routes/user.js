@@ -65,8 +65,8 @@ router.route('/get_session').post((req,res) => {
                         res.json(
                             {
                                 "username": user[0].username,
-                                "profilepic": user[0].profilepic,
-                                "lastLoggedIn": lastLogin
+                                "lastLoggedIn": lastLogin,
+                                "profileversion": user[0].profilepicversion
                             })
                     })
                     .catch(err => res.status(400).json('Error:' + err));
@@ -75,7 +75,7 @@ router.route('/get_session').post((req,res) => {
         .catch(err => res.status(400).json('Error:' + err));
 });
 
-// To get user session details for seamless login
+// To get user details for seamless login
 router.route('/get_user_details').post((req,res) => {
     const token = req.body.token;
     User.find({ sessionToken: token })
@@ -84,20 +84,36 @@ router.route('/get_user_details').post((req,res) => {
             if(user.length === 0){
                 res.status(204).json({'message': 'Failed'});
             }
-            else{
-                const lastLogin = user[0].lastLoggedIn;
-                user[0].lastLoggedIn = new Date()
-                user[0].save()
-                    .then(() => {
-                        res.json(
-                            {
-                                "username": user[0].username,
-                                "mobile": user[0].mobile,
-                                "status": user[0].status,
-                                "profilepic": user[0].profilepic
-                            })
-                    })
-                    .catch(err => res.status(400).json('Error:' + err));
+            else {
+                res.json
+                (
+                    {
+                        "username": user[0].username,
+                        "mobile": user[0].mobile,
+                        "status": user[0].status
+                    }
+                );
+            }
+        })
+        .catch(err => res.status(400).json('Error:' + err));
+});
+
+// To get user profilepic for seamless login
+router.route('/get_user_picture').post((req,res) => {
+    const token = req.body.token;
+    User.find({ sessionToken: token })
+        .then(user => {
+            // console.log(user);
+            if(user.length === 0){
+                res.status(204).json({'message': 'Failed'});
+            }
+            else {
+                res.json
+                (
+                    {
+                        "profilepic": user[0].profilepic
+                    }
+                );
             }
         })
         .catch(err => res.status(400).json('Error:' + err));
@@ -245,7 +261,7 @@ router.route('/forgot_password').post((req,res) => {
                             from: 'project.demo.react.2020@gmail.com',
                             to: email,
                             subject: 'Reset Password Link',
-                            html: "Go to the link below to reset your password <br><br><br>" + "<a href='http://localhost:3000/set-password/"+resetToken+"'>Click here to reset password</a>"
+                            html: "Go to the link below to reset your password <br><br><br>" + "<a href='https://relaxed-wescoff-bb0367.netlify.app/set-password/"+resetToken+"'>Click here to reset password</a>"
                         };
                             
                         transporter.sendMail(mailOptions, function(error, info){
