@@ -169,9 +169,8 @@ router.route('/register').post((req,res) => {
     const resetToken = 'NULL';
     const mobile = req.body.mobile;
     const status = req.body.status;
-    const newUser = new User({ username, password, email, profilepic, sessionToken, lastLoggedIn, resetToken, mobile, status });
-
-    // console.log(newUser);
+    const profilepicversion = 0;
+    const newUser = new User({ username, password, email, profilepic, sessionToken, lastLoggedIn, resetToken, mobile, status, profilepicversion });
     newUser.save()
         .then(() => res.status(201).json({
             "message": "Success"
