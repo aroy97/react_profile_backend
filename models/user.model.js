@@ -12,7 +12,7 @@ const userSchema = new Schema({
     resetToken: { type: String},
     mobile: { type: Number, required: true },
     status: { type: String, required: true},
-    profilepicversion: {type: Number, required: true}
+    profilepicversion: {type: String, required: true}
 },
 {
     timestamps: true
