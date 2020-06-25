@@ -312,5 +312,20 @@ router.route('/check_reset_token/:token').get((req,res) => {
     .catch(err => res.status(400).json('Error:' + err));
 });
 
+//Get contact pics
+router.route('/get_contacts').get((req,res) => {
+    const resettoken = req.params.token;
+    // console.log(resettoken);
+    User.find({}, 'username email profilepic profilepicversion')
+    .then(contacts => {
+        if(!contacts){
+            res.status(204).json({"message" : "Failure"});
+        }
+        else{
+            res.json(contacts);
+        }
+    })
+    .catch(err => res.status(400).json('Error:' + err));
+});
 
 module.exports = router;

@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const basicAuth = require('express-basic-auth');
+const socketio = require('socket.io');
+const http = require('http');
 
 require('dotenv').config();
 
@@ -34,8 +36,23 @@ app.use('/user',usersRouter);
 
 app.route('/').get((req,res) => {
     res.json("Server started successfully on " + startTime);
-})
+});
 
-app.listen(port, () => {
+const server = http.createServer(app);
+const io = socketio(server);
+
+io.on('connection', (socket) => {
+    console.log("New connection");
+
+    socket.on('join', ({ name, room }, callback) => {
+        console.log(name, room);
+    })
+
+    socket.on('disconnect', () => {
+        console.log("User has left");
+    })
+});
+
+server.listen(port, () => {
     console.log('Server is running on port:', port);
 })
