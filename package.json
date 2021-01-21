@@ -29,6 +29,6 @@
     "nodemon": "^2.0.4",
     "otp-generator": "^1.1.0",
     "sha256": "^0.2.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
